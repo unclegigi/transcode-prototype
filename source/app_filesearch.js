@@ -1,9 +1,21 @@
 
 
-var readdir = require('fs').readdir;
+var fs = require('fs');
+var util = require('util');
 
-readdir("c:\\", function(err, files) {
-	console.log(files);
+fs.readdir("C:\\Filme (Original Eingang)", function(err, files) {
+	files.forEach(function(item) {
+		if (item.substr(-3) !== "mkv") {
+			return;
+		}
+		if (item.substr(-13) === "converted.mkv") {
+			return;
+		}
+		console.log(item)
+		var exists = fs.existsSync("C:\\Filme (Original Eingang)\\" + item + '.converted.mkv');
+		util.debug(exists ? "it's there" : "no!");
+
+	});
 });
 
 
