@@ -1,9 +1,6 @@
 
 
 var convert = function(file, callback) {
-
-	console.log(new Date())
-	console.log();
 	var	child_process = require("child_process");
 	var description = { file : file, hd : false,
 		audio : { de : {surround: 0, surround_hd: 0, stereo : 0}, en : { surround: 0, surround_hd: 0, stereo : 0}},
@@ -14,7 +11,7 @@ var convert = function(file, callback) {
 	var inform = execution + " -i \"" + description.file + "\" --scan";
 	var process = execution + " -i \"" + description.file + "\" -o \"" + description.file + ".converted.mkv" + "\" -f mkv";
 
-	child_process.exec(inform, { encoding: 'utf8', timeout: 0, maxBuffer: 20000*1024, killSignal: 'SIGTERM', cwd: null, env: null }, function (informError, informStdout, informStderr) {
+	child_process.exec(inform, { encoding: 'utf8', timeout: 0, maxBuffer: 1000*1024, killSignal: 'SIGTERM', cwd: null, env: null }, function (informError, informStdout, informStderr) {
 
 		var informOutput = informStderr;
 
@@ -89,7 +86,7 @@ var convert = function(file, callback) {
 			};
 
 		});
-
+		console.log();
 		console.log(description)
 		console.log();
 		var bitrate = 8000;
@@ -159,8 +156,9 @@ var convert = function(file, callback) {
 		} else {
 			process += " --x264-profile=baseline --h264-level=\"3.0\"";
 		}
-		console.log(process);
 
+		console.log(process);
+		console.log()
 		child_process.exec(process, { encoding: 'utf8', timeout: 0, maxBuffer: 20000000000*10240, killSignal: 'SIGTERM', cwd: null, env: null }, function (processError, processStdout, processStderr) {
 			callback();
 		});
@@ -168,10 +166,32 @@ var convert = function(file, callback) {
 	});
 }
 
-convert("Y:\\Filme (Original Eingang)\\Video1.mkv", function() {
-	console.log("Fertig!");
-	console.log();
-	console.log(new Date())
-	console.log();
-	return;
+// convert("Y:\\Filme (Original Eingang)\\Video1.mkv", function() {
+// 	console.log("Fertig");
+// 	return;
+// });
+
+
+
+var fs = require('fs');
+var util = require('util');
+var convertableFiles = [];
+fs.readdir("C:\\Filme (Original Eingang)", function(err, files) {
+	files.forEach(function(item) {
+		if (item.substr(-3) !== "mkv") {
+			return;
+		}
+		if (item.substr(-13) === "converted.mkv") {
+			return;
+		}
+		var exists = fs.existsSync("C:\\Filme (Original Eingang)\\" + item + '.converted.mkv');
+		if (!exists) {
+			convertableFiles.push(item);
+		}
+	});
+	console.log(convertableFiles)
 });
+
+
+
+
