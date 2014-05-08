@@ -171,7 +171,7 @@ var convert = function(file, callback) {
 	});
 }
 
-convert("C:\\Filme (Original Eingang)\\Video1.mkv", function() {
+convert("Y:\\Filme (Original Eingang)\\Video1.mkv", function() {
 	console.log("Fertig!");
 	console.log();
 	console.log(new Date())
