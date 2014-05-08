@@ -43,6 +43,7 @@ var convert = function(file, callback) {
 				if (line.match(/    \+ (.*)/)) {
 					count++;
 					if (type === "audio") {
+						console.log("audio: " + line)
 						if (line.indexOf("iso639-2: deu") !== -1) {
 							if ((line.indexOf("5.1") !== -1) || (line.indexOf("7.1") !== -1)) {
 								if (line.indexOf("dts-hd") !== -1) {
@@ -77,6 +78,7 @@ var convert = function(file, callback) {
 							};
 						};
 					} else if (type === "subtitle") {
+						console.log("subtitle: " + line)
 						if (line.indexOf("iso639-2: deu") !== -1) {
 							description.subtitle.de.push(count);
 						} else if (line.indexOf("iso639-2: eng") !== -1) {
@@ -160,11 +162,6 @@ var convert = function(file, callback) {
 		console.log(process);
 
 		child_process.exec(process, { encoding: 'utf8', timeout: 0, maxBuffer: 20000000000*10240, killSignal: 'SIGTERM', cwd: null, env: null }, function (processError, processStdout, processStderr) {
-			console.log('___________________________________');
-			console.log(processError)
-			console.log(processStdout)
-			console.log(processStderr)
-			console.log('___________________________________');
 			callback();
 		});
 
