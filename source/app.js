@@ -159,7 +159,7 @@ var convert = function(file, callback) {
 		}
 		console.log(process);
 
-		child_process.exec(process, function (processError, processStdout, processStderr) {
+		child_process.exec(process, { encoding: 'utf8', timeout: 0, maxBuffer: 200*1024, killSignal: 'SIGTERM', cwd: null, env: null },function (processError, processStdout, processStderr) {
 			callback();
 		});
 
