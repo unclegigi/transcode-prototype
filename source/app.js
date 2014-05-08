@@ -14,7 +14,7 @@ var convert = function(file, callback) {
 	var inform = execution + " -i \"" + description.file + "\" --scan";
 	var process = execution + " -i \"" + description.file + "\" -o \"" + description.file + ".converted.mkv" + "\" -f mkv";
 
-	child_process.exec(inform, function (informError, informStdout, informStderr) {
+	child_process.exec(inform, { encoding: 'utf8', timeout: 0, maxBuffer: 200*1024, killSignal: 'SIGTERM', cwd: null, env: null }, function (informError, informStdout, informStderr) {
 
 		var informOutput = informStderr;
 
@@ -159,7 +159,12 @@ var convert = function(file, callback) {
 		}
 		console.log(process);
 
-		child_process.exec(process, { encoding: 'utf8', timeout: 0, maxBuffer: 200*1024, killSignal: 'SIGTERM', cwd: null, env: null },function (processError, processStdout, processStderr) {
+		child_process.exec(process, { encoding: 'utf8', timeout: 0, maxBuffer: 20000000000*10240, killSignal: 'SIGTERM', cwd: null, env: null }, function (processError, processStdout, processStderr) {
+			console.log('___________________________________');
+			console.log(processError)
+			console.log(processStdout)
+			console.log(processStderr)
+			console.log('___________________________________');
 			callback();
 		});
 
