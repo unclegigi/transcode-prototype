@@ -10,7 +10,7 @@ var convert = function(file, callback) {
 		subtitle : {de : [], en : [] } };
 	var count = 0;
 	var type = "";
-	var execution = "HandbrakeCLIx64";
+	var execution = "handbrake64";
 	var inform = execution + " -i \"" + description.file + "\" --scan";
 	var process = execution + " -i \"" + description.file + "\" -o \"" + description.file + ".converted.mkv" + "\" -f mkv";
 
@@ -167,7 +167,7 @@ var convert = function(file, callback) {
 }
 
 convert("C:\\Filme (Original Eingang)\\Video1.mkv", function() {
-	console.log("Fertig Liberace!");
+	console.log("Fertig!");
 	console.log();
 	console.log(new Date())
 	console.log();
