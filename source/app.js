@@ -14,7 +14,7 @@ var convert = function(file, callback) {
 	var inform = execution + " -i \"" + description.file + "\" --scan";
 	var process = execution + " -i \"" + description.file + "\" -o \"" + description.file + ".converted.mkv" + "\" -f mkv";
 
-	child_process.exec(inform, { encoding: 'utf8', timeout: 0, maxBuffer: 200*1024, killSignal: 'SIGTERM', cwd: null, env: null }, function (informError, informStdout, informStderr) {
+	child_process.exec(inform, { encoding: 'utf8', timeout: 0, maxBuffer: 20000*1024, killSignal: 'SIGTERM', cwd: null, env: null }, function (informError, informStdout, informStderr) {
 
 		var informOutput = informStderr;
 
