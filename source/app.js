@@ -20,6 +20,7 @@ var convert = function(file, callback) {
 
 		informOutput.split("\n").forEach(function(line) {
 
+			console.log(line);
 			line = line.toLowerCase();
 
 			if (line.indexOf("+ size: 1920x1080") !== -1) {
@@ -43,7 +44,6 @@ var convert = function(file, callback) {
 				if (line.match(/    \+ (.*)/)) {
 					count++;
 					if (type === "audio") {
-						console.log("audio: " + line)
 						if (line.indexOf("iso639-2: deu") !== -1) {
 							if ((line.indexOf("5.1") !== -1) || (line.indexOf("7.1") !== -1)) {
 								if (line.indexOf("dts-hd") !== -1) {
@@ -78,7 +78,6 @@ var convert = function(file, callback) {
 							};
 						};
 					} else if (type === "subtitle") {
-						console.log("subtitle: " + line)
 						if (line.indexOf("iso639-2: deu") !== -1) {
 							description.subtitle.de.push(count);
 						} else if (line.indexOf("iso639-2: eng") !== -1) {
